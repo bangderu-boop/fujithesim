@@ -786,6 +786,9 @@ html, body {
 .lut-card-num{position:absolute;left:5px;top:5px;background:rgba(0,0,0,.62);color:#fff;font-size:8px;padding:2px 4px;border-radius:4px}
 .lut-card-check{position:absolute;right:5px;top:5px;width:17px;height:17px;border-radius:50%;background:var(--fuji-accent,#d9a84e);color:#111;display:none;font-size:11px;text-align:center;line-height:17px;font-weight:900}
 .lut-card.active .lut-card-check{display:block}
+.lut-card-fav{position:absolute;right:27px;top:5px;width:22px;height:22px;border:1px solid rgba(255,255,255,.18);border-radius:50%;background:rgba(0,0,0,.58);color:#89929d;font-size:14px;line-height:20px;padding:0;cursor:pointer;z-index:3}
+.lut-card-fav.active{color:#f1c75b;border-color:rgba(217,168,78,.65);background:rgba(217,168,78,.12)}
+.lut-card-fav:active{transform:scale(.94)}
 .lut-current{display:flex;justify-content:space-between;align-items:center;background:#0e1216;border:1px solid #303640;border-radius:7px;padding:7px 9px;margin:7px 0;color:#cbd2d9;font-size:10px}
 .lut-current strong{color:#f1f4f7}
 .lut-gallery-note{font-size:9px;color:#737d88;line-height:1.45;margin:5px 1px 0}
@@ -799,20 +802,48 @@ html, body {
 .vintagecam-lut-status.active{color:#d9a84e}
 @media(max-width:500px){.vintagecam-lut-row{grid-template-columns:1fr}.vintagecam-lut-row label{margin-bottom:-3px}}
 </style>
+<style id="v38-full-tools-css">
+.vintage-frame-card{margin-top:10px;padding-top:2px;border-top:1px solid rgba(255,255,255,.07)}
+.batch-info{font-size:10px;line-height:1.5;color:#8e98a4;margin:6px 0 9px}
+.batch-card{background:#15191e;border:1px solid #303640;border-radius:9px;padding:9px}
+#batchRecipeCode{width:100%;min-height:150px;resize:vertical;background:#0e1216;color:#e8edf2;border:1px solid #343b45;border-radius:7px;padding:9px;font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;box-sizing:border-box}
+.batch-actions{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0}
+.batch-actions .btn,.batch-file-btn{flex:1;min-width:120px;text-align:center;box-sizing:border-box}
+.batch-file-btn{cursor:pointer}
+.batch-file-list{font-size:10px;color:#aab2bb;background:#0e1216;border:1px solid #2d343d;border-radius:7px;padding:8px;max-height:140px;overflow:auto;white-space:pre-wrap}
+.batch-progress{height:7px;background:#0c1014;border-radius:99px;overflow:hidden;margin:9px 0 6px;border:1px solid #252b33}
+#batchProgressBar{height:100%;width:0;background:#d9a84e;transition:width .15s}
+.batch-status{font-size:10px;color:#9da6b0;margin-bottom:8px}
+#batchZipBtn{width:100%}
+.lut-card-fav{position:absolute;right:5px;top:27px;width:23px;height:23px;border:1px solid rgba(255,255,255,.18);border-radius:50%;background:rgba(0,0,0,.65);color:#d9a84e;font-size:15px;line-height:20px;padding:0;z-index:3;cursor:pointer}
+.lut-card-fav.active{background:rgba(217,168,78,.18);border-color:#d9a84e}
+@media(max-width:850px){.v30-main-nav{grid-template-columns:repeat(6,minmax(48px,1fr))}.v30-main-tab{font-size:9px}}
+</style>
 <style id="v30-clean-ui">
 /* V30 CLEAN UI — one navigation layer, engine unchanged */
-.v30-main-nav{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:8px 8px 6px;background:#0b0e12;border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:20}
+.v30-main-nav{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;padding:8px 8px 6px;background:#0b0e12;border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:20}
 .v30-main-tab{border:1px solid rgba(255,255,255,.09);background:#151a20;color:#8f98a4;border-radius:9px;padding:9px 4px;font-size:11px;font-weight:800;letter-spacing:.5px;cursor:pointer}
 .v30-main-tab.active{background:rgba(217,168,78,.14);color:#f2f4f7;border-color:rgba(217,168,78,.42);box-shadow:inset 0 -2px #d9a84e}
 .v30-subnav{display:flex;gap:6px;padding:7px 9px;background:#101419;border-bottom:1px solid rgba(255,255,255,.055);overflow:auto;position:sticky;top:53px;z-index:19}
 .v30-subnav button{flex:0 0 auto;border:1px solid #303640;background:#171c22;color:#9da6b0;border-radius:8px;padding:7px 11px;font-size:10px;font-weight:700;cursor:pointer}
 .v30-subnav button.active{background:#d9a84e;color:#151515;border-color:#d9a84e}
+/* Compact LUT Strength control shown beside the LUT tab only */
+.v30-lut-tab-wrap{display:flex;align-items:stretch;gap:5px;flex:0 0 auto}
+.v30-lut-tab-wrap>.v30-lut-strength{display:flex;align-items:center;gap:6px;min-width:138px;padding:4px 7px;border:1px solid #303640;background:#171c22;border-radius:8px}
+.v30-lut-strength label{font-size:9px;font-weight:800;letter-spacing:.35px;color:#9da6b0;white-space:nowrap}
+.v30-lut-strength .val-display{color:#d9a84e;font-size:10px;min-width:20px;text-align:right}
+.v30-lut-strength input[type=range]{width:72px;min-width:55px;margin:0}
+.v30-lut-strength input[type=range]::-webkit-slider-thumb{width:14px;height:14px}
+.v30-lut-strength input[type=range]::-moz-range-thumb{width:14px;height:14px}
+.v30-lut-strength.v30-lut-strength-hidden{display:none!important}
 .controls-panel>.top-tabs{display:none!important}
 .controls-panel>.panel-tab.v30-hidden{display:none!important}
 .controls-panel>.panel-tab.v30-visible{display:block!important}
 .v30-subnav:empty{display:none}
 #lutPanel{padding-top:0}
-@media(max-width:850px){.v30-main-nav{grid-template-columns:repeat(5,minmax(58px,1fr));gap:3px;padding:6px}.v30-main-tab{padding:8px 2px;font-size:10px}.v30-subnav{top:47px;padding:6px 7px}.v30-subnav button{padding:7px 10px}}
+@media(max-width:850px){.v30-main-nav{grid-template-columns:repeat(6,minmax(52px,1fr));gap:3px;padding:6px}.v30-main-tab{padding:8px 2px;font-size:10px}.v30-subnav{top:47px;padding:6px 7px}.v30-subnav button{padding:7px 10px}}
+/* Keep the original engine control in place; only its UI row is hidden. */
+#lutPanel .vintagecam-lut-row:has(#vintageLutStrength){display:none!important}
 </style>
 <script>document.documentElement.classList.add('v30-loading');</script>
 <style id="v30-clean-loading">
@@ -837,11 +868,88 @@ header h1{
 }
 </style>
 
+
+<style id="v39-floating-undo-redo">
+/* V39: keep only Undo/Redo and float them over the preview. */
+.preview-container{position:relative !important;}
+.workflow-bar{
+  position:absolute !important;
+  left:50% !important;
+  bottom:58px !important;
+  transform:translateX(-50%) !important;
+  z-index:30 !important;
+  display:flex !important;
+  width:auto !important;
+  padding:5px !important;
+  gap:6px !important;
+  background:rgba(10,12,14,.42) !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  border-radius:10px !important;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  opacity:.72 !important;
+  box-shadow:0 5px 18px rgba(0,0,0,.22);
+}
+.workflow-btn{
+  flex:0 0 auto !important;
+  min-width:46px !important;
+  width:46px !important;
+  height:34px !important;
+  padding:5px !important;
+  font-size:16px !important;
+  line-height:1 !important;
+  opacity:.82 !important;
+  border-radius:7px !important;
+}
+.workflow-btn span{font-size:0 !important;}
+.workflow-btn:hover{opacity:1 !important;}
+@media(max-width:850px){
+  .workflow-bar{bottom:54px !important;}
+  .workflow-btn{min-width:44px !important;width:44px !important;height:32px !important;}
+}
+</style>
+
+<style id="v49-header-film-simulation">
+/* V49: compact two-line brand on the same side */
+header{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+}
+.header-brand{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  justify-content:center !important;
+  line-height:1 !important;
+}
+.header-brand h1{
+  margin:0 !important;
+  font-size:17px !important;
+  line-height:1.05 !important;
+  letter-spacing:2.2px !important;
+  white-space:nowrap !important;
+}
+.header-brand .header-credit{
+  margin:3px 0 0 !important;
+  font-size:8px !important;
+  line-height:1 !important;
+  letter-spacing:1.35px !important;
+  color:#aeb3b6 !important;
+  font-weight:500 !important;
+  white-space:nowrap !important;
+}
+@media(max-width:600px){
+  .header-brand h1{font-size:15px !important;letter-spacing:1.7px !important;}
+  .header-brand .header-credit{font-size:7px !important;letter-spacing:1.1px !important;}
+}
+</style>
+
 </head>
 <body>
 
   <header>
-    <h1>FUJIFILM SIMULATION</h1><div class="header-credit">by Badru Kasor</div>
+    <div class="header-brand"><h1>FILM SIMULATION</h1><div class="header-credit">by Badru Kasor</div></div>
     <input type="file" id="imageInput" accept="image/*" style="font-size: 0.75rem; width: 170px;">
   </header>
 
@@ -856,9 +964,6 @@ header h1{
       <div class="workflow-bar">
 <button class="workflow-btn" id="undoBtn">↶ <span>Undo</span></button>
 <button class="workflow-btn" id="redoBtn">↷ <span>Redo</span></button>
-<button class="workflow-btn" id="fitBtn">⛶ <span>Fit</span></button>
-<button class="workflow-btn" id="zoomBtn">100%</button>
-<button class="workflow-btn" id="beforeAfterBtn">↔ <span>Before/After</span></button>
 </div>
 <div class="action-bar">
         <button class="btn btn-secondary" id="compareBtn">🔍 ภาพเดิม</button>
@@ -875,6 +980,7 @@ header h1{
         <button class="v30-main-tab" data-v30-section="effects">EFFECTS</button>
         <button class="v30-main-tab" data-v30-section="local">LOCAL</button>
         <button class="v30-main-tab" data-v30-section="save">RECIPE</button>
+        <button class="v30-main-tab" data-v30-section="batch">BATCH</button>
       </div>
       <div id="v30Subnav" class="v30-subnav"></div>
 
@@ -1052,7 +1158,7 @@ header h1{
           <button class="btn btn-smart" id="smartRandomBtn">✨ สุ่มโทนภาพตามหลักการ</button>
         </div>
 
-        <div class="section-title">FILM SIMULATION</div>
+        <div class="section-title">Base Film Simulation</div>
         <div class="small-note">Fuji-inspired rendering engine • ไม่ใช่ color science ตรงจากกล้อง Fujifilm</div>
         <div class="sim-grid">
           <button class="sim-btn active" data-sim="provia">PROVIA</button>
@@ -1066,7 +1172,7 @@ header h1{
           <button class="sim-btn" data-sim="acros" style="grid-column:span 2">ACROS (Monochrome)</button>
         </div>
 
-        <div class="section-title">COLOR & WB</div>
+        <div class="section-title">Color & WB</div>
         <div class="control-group">
           <label for="wbR">WB Shift Red <span class="val-display" id="wbRVal">0</span></label>
           <input type="range" id="wbR" min="-9" max="9" value="0">
@@ -1128,7 +1234,7 @@ header h1{
 
       </div>
       <div id="lookPanel" class="panel-tab">
-        <div class="section-title">TONE</div>
+        <div class="section-title">Tone & Clarity</div>
         <div class="control-group">
           <label for="brightness">Brightness <span class="val-display" id="brightnessVal">0</span></label>
           <input type="range" id="brightness" min="-50" max="50" value="0">
@@ -1150,7 +1256,7 @@ header h1{
           <input type="range" id="vignette" min="-10" max="10" value="0">
         </div>
 
-        <div class="section-title">COLOR TEMPERATURE</div>
+        <div class="section-title">Advanced Color</div>
         <div class="control-group">
           <label for="temperature">Temperature <span class="val-display" id="temperatureVal">0</span></label>
           <input type="range" id="temperature" min="-100" max="100" value="0">
@@ -1168,7 +1274,7 @@ header h1{
           <input type="range" id="whites" min="-100" max="100" value="0">
         </div>
 
-        <div class="section-title">COLOR GRADING</div>
+        <div class="section-title">Color Grading</div>
         <div class="control-group">
           <label for="shadowHue">Shadow Hue <span class="val-display" id="shadowHueVal">0</span></label>
           <input type="range" id="shadowHue" min="0" max="360" value="0">
@@ -1186,7 +1292,7 @@ header h1{
           <input type="range" id="highlightSat" min="0" max="100" value="0">
         </div>
 
-        <div class="section-title">CURVE</div>
+        <div class="section-title">Tone Curve</div>
         <div class="small-note">5-point curve: ปรับดำ / เงา / กลาง / ไฮไลต์ / ขาว แบบละเอียด</div>
         <div class="control-group">
           <label for="curveBlack">Black Point <span class="val-display" id="curveBlackVal">0</span></label>
@@ -1209,7 +1315,7 @@ header h1{
           <input type="range" id="curveWhite" min="-50" max="50" value="0">
         </div>
 
-        <div class="section-title">FILM EFFECT</div>
+        <div class="section-title">Film Texture</div>
         <div class="control-group">
           <label for="grain">Grain Amount <span class="val-display" id="grainVal">0</span></label>
           <input type="range" id="grain" min="0" max="40" value="0">
@@ -1218,7 +1324,6 @@ header h1{
           <label for="grainSize">Grain Size <span class="val-display" id="grainSizeVal">1</span></label>
           <input type="range" id="grainSize" min="1" max="6" value="1">
         </div>
-        <div class="section-title">DETAIL</div>
         <div class="control-group">
           <label for="sharpen">Sharpen <span class="val-display" id="sharpenVal">0</span></label>
           <input type="range" id="sharpen" min="0" max="100" value="0">
@@ -1255,22 +1360,73 @@ header h1{
           <button class="btn btn-reset" id="clearRecipeBtn">Clear</button>
         </div>
 
-        <div class="section-title">Vintage Effects & Frame</div>
-        <div class="checkbox-group">
-          <input type="checkbox" id="enableDate">
-          <label for="enableDate" style="margin:0;cursor:pointer">Show Date Stamp</label>
+        <div id="vintageFramePanel" class="vintage-frame-card">
+          <div class="section-title">Vintage Effects & Frame</div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="enableDate">
+            <label for="enableDate" style="margin:0;cursor:pointer">Show Date Stamp</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="enableBorder">
+            <label for="enableBorder" style="margin:0;cursor:pointer">Film Border</label>
+          </div>
+          <div class="control-group">
+            <label for="borderStyle">Border Style</label>
+            <select id="borderStyle">
+              <option value="classic">Classic Film</option>
+              <option value="kodak2008">KODAK 200-8 Film Strip • Outer Frame</option>
+              <option value="fuji35">FUJIFILM 35mm Frame • Outer Frame</option>
+              <option value="contact35">35mm Contact Sheet • Outer Frame</option>
+              <option value="cinema35">Cinema 35mm • Outer Frame</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label for="borderThickness">Frame Thickness <span class="val-display" id="borderThicknessVal">5%</span></label>
+            <input type="range" id="borderThickness" min="1" max="10" step="1" value="5">
+          </div>
+          <div class="control-group">
+            <label for="borderText">Border Custom Text</label>
+            <input type="text" id="borderText" value="FUJIFILM X-T5">
+          </div>
+          <div class="control-group">
+            <label for="borderTextSize">Border Text Size (%)</label>
+            <input type="number" id="borderTextSize" value="2" min="0.5" max="10" step="0.1" inputmode="decimal">
+          </div>
+          <div class="section-title" style="margin-top:12px">Inner Shadow</div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="enableInnerShadow">
+            <label for="enableInnerShadow" style="margin:0;cursor:pointer">Inner Shadow กรอบกับภาพ</label>
+          </div>
+          <div class="control-group">
+            <label for="innerShadowIntensity">Shadow Intensity <span class="val-display" id="innerShadowIntensityVal">50%</span></label>
+            <input type="range" id="innerShadowIntensity" min="0" max="100" step="1" value="50">
+          </div>
+          <div class="control-group">
+            <label for="innerShadowSize">Shadow Size <span class="val-display" id="innerShadowSizeVal">20px</span></label>
+            <input type="range" id="innerShadowSize" min="2" max="80" step="1" value="20">
+          </div>
         </div>
-        <div class="checkbox-group">
-          <input type="checkbox" id="enableBorder">
-          <label for="enableBorder" style="margin:0;cursor:pointer">Classic Film Border</label>
-        </div>
-        <div class="control-group">
-          <label for="borderText">Border Custom Text</label>
-          <input type="text" id="borderText" value="FUJIFILM X-T5">
-        </div>
-        <div class="control-group">
-          <label for="borderTextSize">Border Text Size (%)</label>
-          <input type="number" id="borderTextSize" value="2" min="0.5" max="10" step="0.1" inputmode="decimal">
+      </div>
+
+      <div id="batchPanel" class="panel-tab">
+        <div class="section-title">BATCH — Apply Recipe to Multiple Photos</div>
+        <div class="batch-info">ใส่ Recipe JSON เดียว แล้วใช้กับรูปหลายรูปพร้อมกัน • เครื่องมือจะใช้ Render Engine เดิมของแอป</div>
+        <div class="batch-card">
+          <div class="batch-actions">
+            <button class="btn btn-secondary" id="batchUseCurrent">USE CURRENT RECIPE</button>
+            <button class="btn btn-secondary" id="batchClear">CLEAR</button>
+          </div>
+          <textarea id="batchRecipeCode" placeholder='{"simulation":"classic_chrome","vintageLut":"23","vintageLutStrength":"75","wbR":"1"}'></textarea>
+          <div class="batch-actions">
+            <label class="btn btn-secondary batch-file-btn">ADD PHOTOS
+              <input id="batchImageInput" type="file" accept="image/*" multiple hidden>
+            </label>
+            <button class="btn" id="batchProcessBtn">PROCESS ALL</button>
+          </div>
+          <div id="batchFileList" class="batch-file-list">ยังไม่ได้เลือกรูป</div>
+          <div class="batch-progress"><div id="batchProgressBar"></div></div>
+          <div id="batchStatus" class="batch-status">พร้อมใช้งาน</div>
+          <button class="btn btn-smart" id="batchZipBtn" disabled>EXPORT ALL ZIP</button>
         </div>
       </div>
     </div>
@@ -1433,12 +1589,12 @@ const defaultSettings={
   grainSize:'1',grainRough:'50',
   curveBlack:'0',curveShadow:'0',curveMid:'0',curveHighlight:'0',curveWhite:'0',
   sharpen:'0',noiseReduction:'0',
-  enableDate:false,enableBorder:false,borderText:'FUJIFILM X-T5',borderTextSize:'2'
+  enableDate:false,enableBorder:false,borderStyle:'classic',borderThickness:'5',borderText:'FUJIFILM X-T5',borderTextSize:'2',enableInnerShadow:false,innerShadowIntensity:'50',innerShadowSize:'20'
 };
 const controls={};
 ['vintageLut','vintageLutStrength','wbR','wbB','color','contrast','fxBlue','monoShift','brightness','highlight','shadow','clarity','vignette',
  'grain','temperature','tint','fade','whites','shadowHue','shadowSat','highlightHue','highlightSat',
- 'grainSize','grainRough','curveBlack','curveShadow','curveMid','curveHighlight','curveWhite','sharpen','noiseReduction','enableDate','enableBorder','borderText','borderTextSize'].forEach(id=>controls[id]=document.getElementById(id));
+ 'grainSize','grainRough','curveBlack','curveShadow','curveMid','curveHighlight','curveWhite','sharpen','noiseReduction','enableDate','enableBorder','borderStyle','borderThickness','borderText','borderTextSize','enableInnerShadow','innerShadowIntensity','innerShadowSize'].forEach(id=>controls[id]=document.getElementById(id));
 
 let renderTimer=0,renderQueued=false;
 function requestRender(){
@@ -1470,7 +1626,7 @@ function getCurrentConfig(){
   if(window.fujifilmV28Duo)cfg.duoChromatic={...window.fujifilmV28Duo};
   cfg.mask={...maskState,tool:maskTool};
   Object.keys(controls).forEach(k=>{
-    if(controls[k])cfg[k]=(k==='enableDate'||k==='enableBorder')?controls[k].checked:controls[k].value;
+    if(controls[k])cfg[k]=(k==='enableDate'||k==='enableBorder'||k==='enableInnerShadow')?controls[k].checked:controls[k].value;
   });
   return cfg;
 }
@@ -1493,9 +1649,9 @@ function applyConfig(raw){
   if(mono)mono.style.display=currentSimulation==='acros'?'block':'none';
   Object.keys(controls).forEach(k=>{
     if(controls[k]&&cfg[k]!==undefined){
-      if(k==='enableDate'||k==='enableBorder')controls[k].checked=Boolean(cfg[k]);
+      if(k==='enableDate'||k==='enableBorder'||k==='enableInnerShadow')controls[k].checked=Boolean(cfg[k]);
       else controls[k].value=cfg[k];
-      if(!['borderText','enableDate','enableBorder'].includes(k)){
+      if(!['borderText','enableDate','enableBorder','enableInnerShadow'].includes(k)){
         const v=document.getElementById(k+'Val');if(v)v.textContent=cfg[k];
       }
     }
@@ -1711,6 +1867,20 @@ function populateVintageLutSelect(){
     const o=document.createElement('option'); o.value=String(i); o.textContent=VINTAGE_LUT_META[i]?.name||`LUT ${String(i).padStart(2,'0')}`; el.appendChild(o);
   }
 }
+const VINTAGE_LUT_FAV_KEY='fujifilm_vintagecam_favourite_luts_v1';
+function getVintageLutFavorites(){
+  try{const a=JSON.parse(localStorage.getItem(VINTAGE_LUT_FAV_KEY)||'[]');return Array.isArray(a)?a.map(String):[];}catch(e){return [];}
+}
+function setVintageLutFavorites(list){
+  try{localStorage.setItem(VINTAGE_LUT_FAV_KEY,JSON.stringify([...new Set(list.map(String))]));}catch(e){}
+}
+function toggleVintageLutFavorite(id){
+  const sid=String(id), list=getVintageLutFavorites();
+  const i=list.indexOf(sid);
+  if(i>=0)list.splice(i,1);else list.push(sid);
+  setVintageLutFavorites(list);
+  renderVintageLutGallery();
+}
 function selectVintageLutFromGallery(id){
   const el=document.getElementById('vintageLut'); if(!el)return;
   el.value=String(id);
@@ -1725,17 +1895,25 @@ function renderVintageLutGallery(){
   const root=document.getElementById('lutGallery'); if(!root)return;
   const search=(document.getElementById('lutSearch')?.value||'').trim().toLowerCase();
   const group=document.getElementById('lutGroupFilter')?.value||'all';
+  const favorites=getVintageLutFavorites();
   root.innerHTML='';
   let count=0;
   for(let i=1;i<=87;i++){
     const m=VINTAGE_LUT_META[i]; if(!m)continue;
+    const sid=String(i);
     const hay=`${m.name} ${m.desc} ${m.group} ${i}`.toLowerCase();
     if(search && !hay.includes(search))continue;
-    if(group!=='all'&&m.group!==group)continue;
+    if(group==='favourites'&&!favorites.includes(sid))continue;
+    if(group!=='all'&&group!=='favourites'&&m.group!==group)continue;
     count++;
-    const card=document.createElement('button'); card.type='button'; card.className='lut-card'; card.dataset.id=String(i); card.title=`${m.name} — ${m.desc}`;
-    card.innerHTML=`<canvas class="lut-thumb" width="160" height="100" aria-label="${m.name}"></canvas><span class="lut-card-num">${String(i).padStart(2,'0')}</span><span class="lut-card-check">✓</span><div class="lut-card-info"><div class="lut-card-name">${m.name}</div><div class="lut-card-desc">${m.desc}</div></div>`;
-    card.addEventListener('click',()=>selectVintageLutFromGallery(i)); root.appendChild(card);
+    const card=document.createElement('button'); card.type='button'; card.className='lut-card'; card.dataset.id=sid; card.title=`${m.name} — ${m.desc}`;
+    const fav=favorites.includes(sid);
+    card.innerHTML=`<canvas class="lut-thumb" width="160" height="100" aria-label="${m.name}"></canvas><span class="lut-card-num">${String(i).padStart(2,'0')}</span><span class="lut-card-fav${fav?' active':''}" role="button" tabindex="0" aria-label="${fav?'Remove from':'Add to'} favourites" title="${fav?'Remove from':'Add to'} favourites">${fav?'★':'☆'}</span><span class="lut-card-check">✓</span><div class="lut-card-info"><div class="lut-card-name">${m.name}</div><div class="lut-card-desc">${m.desc}</div></div>`;
+    card.addEventListener('click',()=>selectVintageLutFromGallery(i));
+    const star=card.querySelector('.lut-card-fav');
+    star?.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();toggleVintageLutFavorite(i);});
+    star?.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();toggleVintageLutFavorite(i);}});
+    root.appendChild(card);
   }
   const ce=document.getElementById('lutCount'); if(ce)ce.textContent=`${count} effects`;
   const active=document.getElementById('vintageLut')?.value||'none';
@@ -1785,7 +1963,11 @@ async function updateVintageLutThumbnails(){
 }
 function initVintageLutGallery(){
   const gf=document.getElementById('lutGroupFilter');
-  if(gf){[...new Set(Object.values(VINTAGE_LUT_META).map(x=>x.group))].forEach(g=>{const o=document.createElement('option');o.value=g;o.textContent=g;gf.appendChild(o)});gf.addEventListener('change',renderVintageLutGallery)}
+  if(gf){
+    const favOpt=document.createElement('option');favOpt.value='favourites';favOpt.textContent='★ Favourites';gf.appendChild(favOpt);
+    [...new Set(Object.values(VINTAGE_LUT_META).map(x=>x.group))].forEach(g=>{const o=document.createElement('option');o.value=g;o.textContent=g;gf.appendChild(o)});
+    gf.addEventListener('change',renderVintageLutGallery)
+  }
   document.getElementById('lutSearch')?.addEventListener('input',renderVintageLutGallery);
   renderVintageLutGallery();
 }
@@ -1827,9 +2009,8 @@ function applyFilters(targetCtx,width,height){
   const sim=currentSimulation;
   const wbR=parseInt(controls.wbR.value)*5,wbB=parseInt(controls.wbB.value)*5;
   const brightness=parseInt(controls.brightness.value);
-  const contrast=parseInt(controls.contrast.value);
   const highlight=parseFloat(controls.highlight.value),shadow=parseFloat(controls.shadow.value);
-  const satAdjust=parseInt(controls.color.value)*.1,fxBlue=parseInt(controls.fxBlue.value);
+  const satAdjust=parseInt(controls.color.value)*.1,contrast=parseInt(controls.contrast.value),fxBlue=parseInt(controls.fxBlue.value);
   const monoShift=parseInt(controls.monoShift.value);
   const vignetteVal=parseInt(controls.vignette.value),grainAmount=parseInt(controls.grain.value);
   const temp=parseInt(controls.temperature.value)*.35,tint=parseInt(controls.tint.value)*.22;
@@ -1959,7 +2140,10 @@ function applyFilters(targetCtx,width,height){
 
       r+=wbR+temp;b+=wbB-temp;g+=tint;
       r+=brightness;g+=brightness;b+=brightness;
-      if(contrast!==0){const cf=1+contrast*0.06;r=(r-128)*cf+128;g=(g-128)*cf+128;b=(b-128)*cf+128;}
+      if(contrast!==0){
+        const cf=1+contrast*0.06;
+        r=(r-128)*cf+128; g=(g-128)*cf+128; b=(b-128)*cf+128;
+      }
 
       if(sim!=='acros'&&satAdjust!==0){
         const gr=.299*r+.587*g+.114*b, m=1+satAdjust;
@@ -2101,13 +2285,318 @@ function v15UpdatePreviewOrientation(){
   c.classList.toggle('portrait-preview',portrait);
 }
 
+function getSimulationDisplayName(sim){
+  const btn=document.querySelector(`.sim-btn[data-sim="${String(sim||'').replace(/"/g,'')}"]`);
+  if(btn) return (btn.textContent||'').trim().toUpperCase();
+  return String(sim||'').replace(/_/g,' ').toUpperCase();
+}
+
+function drawKodak2008Border(ctx, canvasW, canvasH, bw, fh, text, sim, textSize){
+  // Kodak 200-8 inspired film-strip frame: cream base, black top/bottom strips,
+  // rounded sprocket holes and warm red/orange edge light-leak accents.
+  const topH=Math.max(bw, 34);
+  const bottomH=Math.max(fh, 40);
+  const cream='#f3efe3';
+  ctx.fillStyle=cream;
+  ctx.fillRect(0,0,canvasW,canvasH);
+
+  // warm edge/light-leak accents
+  const topGrad=ctx.createLinearGradient(0,0,canvasW,0);
+  topGrad.addColorStop(0,'rgba(255,105,35,.72)');
+  topGrad.addColorStop(.08,'rgba(255,170,70,.16)');
+  topGrad.addColorStop(.5,'rgba(255,145,40,0)');
+  topGrad.addColorStop(.92,'rgba(255,170,70,.16)');
+  topGrad.addColorStop(1,'rgba(255,75,25,.72)');
+  ctx.fillStyle=topGrad;ctx.fillRect(0,0,canvasW,topH);
+  const botGrad=ctx.createLinearGradient(0,0,canvasW,0);
+  botGrad.addColorStop(0,'rgba(255,75,25,.72)');
+  botGrad.addColorStop(.08,'rgba(255,170,70,.16)');
+  botGrad.addColorStop(.5,'rgba(255,145,40,0)');
+  botGrad.addColorStop(.92,'rgba(255,170,70,.16)');
+  botGrad.addColorStop(1,'rgba(255,75,25,.72)');
+  ctx.fillStyle=botGrad;ctx.fillRect(0,canvasH-bottomH,canvasW,bottomH);
+
+  ctx.fillStyle='#050505';
+  ctx.fillRect(0,Math.max(0,topH*.12),canvasW,Math.max(1,topH*.76));
+  ctx.fillRect(0,canvasH-bottomH+Math.max(0,bottomH*.12),canvasW,Math.max(1,bottomH*.76));
+
+  // Sprocket holes
+  const holeW=Math.max(12,Math.floor(bw*.62));
+  const holeH=Math.max(10,Math.floor(topH*.58));
+  const gap=Math.max(10,Math.floor(canvasW/9));
+  const start=-Math.floor(holeW*.25);
+  for(let x=start;x<canvasW+holeW;x+=gap){
+    const rr=Math.min(7,holeH*.22);
+    ctx.fillStyle='#f6f0e2';
+    ctx.beginPath();
+    ctx.roundRect(x,Math.max(2,topH*.18),holeW,holeH,rr);ctx.fill();
+    ctx.beginPath();
+    ctx.roundRect(x,canvasH-bottomH+Math.max(2,bottomH*.18),holeW,Math.max(10,Math.floor(bottomH*.58)),rr);ctx.fill();
+  }
+
+  // Film markings / typography
+  const fs=Math.max(8,Math.floor(canvasW*(Number(textSize||2)/100)));
+  ctx.fillStyle='#f0a21a';
+  ctx.textAlign='left';ctx.font=`bold ${Math.max(10,Math.floor(fs*.9))}px Arial, sans-serif`;
+  ctx.fillText('18',Math.max(6,bw*.7),Math.max(12,topH*.58));
+  const simName=getSimulationDisplayName(sim);
+  ctx.textAlign='center';
+  const simFont=Math.max(10,Math.floor(fs*1.15));
+  ctx.font=`bold ${simFont}px Arial, sans-serif`;
+  ctx.fillText(simName,canvasW/2,Math.max(15,topH*.58));
+  ctx.textAlign='right';ctx.font=`bold ${Math.max(9,Math.floor(fs*.9))}px Arial, sans-serif`;
+  ctx.fillText('18A',canvasW-Math.max(6,bw*.7),Math.max(12,topH*.58));
+
+  ctx.fillStyle='#f0a21a';
+  ctx.textAlign='left';ctx.font=`bold ${Math.max(8,Math.floor(fs*.72))}px monospace`;
+  ctx.fillText(String(text||'').slice(0,22),Math.max(6,bw*.7),canvasH-bottomH*.28);
+  ctx.textAlign='right';ctx.font=`bold ${Math.max(8,Math.floor(fs*.72))}px monospace`;
+  ctx.fillText(String(sim||'').toUpperCase(),canvasW-Math.max(6,bw*.7),canvasH-bottomH*.28);
+
+  // small frame index marks along the lower strip
+  ctx.strokeStyle='rgba(240,162,26,.65)';ctx.lineWidth=Math.max(1,Math.floor(canvasW*.0015));
+  const baseY=canvasH-bottomH*.48;
+  for(let x=bw;x<canvasW-bw;x+=Math.max(14,Math.floor(canvasW*.018))){
+    const h=(x%(Math.max(28,Math.floor(canvasW*.09)))<Math.max(14,Math.floor(canvasW*.045)))?bottomH*.18:bottomH*.09;
+    ctx.beginPath();ctx.moveTo(x,baseY);ctx.lineTo(x,baseY+h);ctx.stroke();
+  }
+}
+
+function drawOuterBorderFrame(ctx,canvasW,canvasH,bw,fh,style,text,sim,textSize){
+  if(style==='classic'){
+    drawBorderFrame(ctx,canvasW,canvasH,bw,fh,'classic',text,sim,textSize);
+    return;
+  }
+  const topH=Math.max(30,bw), bottomH=Math.max(36,fh);
+  const name=getSimulationDisplayName(sim);
+  const fs=Math.max(9,Math.floor(canvasW*(Number(textSize||2)/100)));
+  ctx.save();
+  ctx.textBaseline='middle';
+
+  if(style==='kodak2008'){
+    drawKodak2008Border(ctx,canvasW,canvasH,bw,fh,text,sim,textSize);
+  } else if(style==='fuji35'){
+    ctx.fillStyle='#101010';ctx.fillRect(0,0,canvasW,canvasH);
+    ctx.fillStyle='rgba(7,7,7,.98)';ctx.fillRect(0,0,canvasW,topH);ctx.fillRect(0,canvasH-bottomH,canvasW,bottomH);
+    ctx.strokeStyle='rgba(245,245,238,.65)';ctx.lineWidth=Math.max(2,Math.floor(canvasW*.003));
+    ctx.strokeRect(Math.max(2,bw*.18),Math.max(2,bw*.18),canvasW-Math.max(2,bw*.36),canvasH-Math.max(2,bw*.36));
+    ctx.fillStyle='#ece9df';ctx.textAlign='left';ctx.font=`bold ${Math.max(11,fs)}px Arial,sans-serif`;ctx.fillText('FUJIFILM',Math.max(8,bw*.7),topH*.52);
+    ctx.textAlign='center';ctx.fillText(name,canvasW/2,topH*.52);
+    ctx.textAlign='right';ctx.fillText('35MM',canvasW-Math.max(8,bw*.7),topH*.52);
+    ctx.font=`${Math.max(9,Math.floor(fs*.68))}px monospace`;ctx.textAlign='left';ctx.fillText(String(text||'').slice(0,24),Math.max(8,bw*.7),canvasH-bottomH*.5);
+    ctx.textAlign='right';ctx.fillText(String(sim||'').toUpperCase(),canvasW-Math.max(8,bw*.7),canvasH-bottomH*.5);
+  } else if(style==='contact35'){
+    ctx.fillStyle='#f4f0e2';ctx.fillRect(0,0,canvasW,canvasH);
+    ctx.fillStyle='#171717';
+    const holeW=Math.max(18,Math.floor(canvasW*.035));
+    for(let x=-holeW;x<canvasW+holeW;x+=Math.max(42,Math.floor(canvasW*.075))){
+      ctx.fillRect(x+6,Math.max(4,topH*.2),holeW,Math.max(12,Math.floor(topH*.58)));
+      ctx.fillRect(x+6,canvasH-bottomH+Math.max(4,bottomH*.2),holeW,Math.max(12,Math.floor(bottomH*.58)));
+    }
+    ctx.fillStyle='#262626';ctx.textAlign='center';ctx.font=`bold ${Math.max(12,Math.floor(fs*1.05))}px Arial,sans-serif`;ctx.fillText(name,canvasW/2,topH*.52);
+    ctx.font=`bold ${Math.max(9,Math.floor(fs*.7))}px monospace`;ctx.textAlign='left';ctx.fillText(String(text||'').slice(0,22),Math.max(8,bw*.7),canvasH-bottomH*.5);
+    ctx.textAlign='right';ctx.fillText('FRAME 18A',canvasW-Math.max(8,bw*.7),canvasH-bottomH*.5);
+  } else if(style==='cinema35'){
+    ctx.fillStyle='#050505';ctx.fillRect(0,0,canvasW,canvasH);
+    ctx.fillStyle='rgba(214,139,49,.9)';ctx.fillRect(0,topH-2,canvasW,2);ctx.fillRect(0,canvasH-bottomH,canvasW,2);
+    ctx.fillStyle='rgba(245,245,245,.94)';ctx.textAlign='center';ctx.font=`bold ${Math.max(12,Math.floor(fs*1.05))}px Arial,sans-serif`;ctx.fillText(name,canvasW/2,topH*.53);
+    ctx.textAlign='left';ctx.font=`${Math.max(9,Math.floor(fs*.72))}px monospace`;ctx.fillText(String(text||'').slice(0,22),Math.max(8,bw*.7),canvasH-bottomH*.5);
+    ctx.textAlign='right';ctx.fillText('35MM • '+String(sim||'').toUpperCase(),canvasW-Math.max(8,bw*.7),canvasH-bottomH*.5);
+  }
+  ctx.restore();
+}
+
+function drawOverlayBorder(ctx,w,h,style,text,sim,textSize){
+  const name=getSimulationDisplayName(sim);
+  const fs=Math.max(9,Math.floor(w*(Number(textSize||2)/100)));
+  const side=Math.max(2,Math.floor(w*.012));
+  const outer=window.__filmOuterInsets||null;
+  const top=outer?Math.max(1,Math.floor(outer.top)):Math.max(42,Math.floor(h*(style==='kodak2008'?.145:style==='contact35'?.10:style==='fuji35'?.075:.115)));
+  const bottom=outer?Math.max(1,Math.floor(outer.bottom)):Math.max(48,Math.floor(h*(style==='kodak2008'?.145:style==='contact35'?.11:style==='fuji35'?.075:.15)));
+  ctx.save();
+  ctx.textBaseline='middle';
+
+  if(style==='classic'){
+    // Classic Film: the original classic frame, painted ON TOP of the photo.
+    // Keep the photo at its original dimensions; only the outer/top-bottom frame
+    // is painted over the image, matching the V42 overlay behavior.
+    const classicTop=Math.max(30,Math.floor(h*.07));
+    const classicBottom=Math.max(40,Math.floor(h*.095));
+    const classicSide=Math.max(2,Math.floor(w*.012));
+    ctx.fillStyle='rgba(12,12,12,.52)';
+    ctx.fillRect(0,0,w,classicTop);
+    ctx.fillRect(0,h-classicBottom,w,classicBottom);
+    ctx.strokeStyle='rgba(245,245,238,.68)';
+    ctx.lineWidth=Math.max(2,Math.floor(w*.0025));
+    ctx.strokeRect(classicSide,classicSide,w-classicSide*2,h-classicSide*2);
+    ctx.fillStyle='rgba(235,232,220,.92)';
+    ctx.textAlign='left';
+    ctx.font=`bold ${Math.max(11,Math.floor(fs*.95))}px Arial,sans-serif`;
+    ctx.fillText('FUJIFILM',w*.035,classicTop*.52);
+    ctx.textAlign='center';
+    ctx.fillText(name,w/2,classicTop*.52);
+    ctx.textAlign='right';
+    ctx.fillText('35MM',w*.965,classicTop*.52);
+    ctx.font=`${Math.max(9,Math.floor(fs*.68))}px monospace`;
+    ctx.textAlign='left';
+    ctx.fillText(String(text||'').slice(0,24),w*.035,h-classicBottom*.48);
+    ctx.textAlign='right';
+    ctx.fillText(String(sim||'').toUpperCase(),w*.965,h-classicBottom*.48);
+  } else if(style==='kodak2008'){
+    // Film-strip border painted ON TOP of the photo, keeping the original image size.
+    ctx.fillStyle='rgba(4,4,4,.52)';
+    ctx.fillRect(0,0,w,top); ctx.fillRect(0,h-bottom,w,bottom);
+    const edge=ctx.createLinearGradient(0,0,w,0);
+    edge.addColorStop(0,'rgba(255,80,20,.95)');edge.addColorStop(.08,'rgba(255,170,65,.18)');
+    edge.addColorStop(.5,'rgba(255,145,35,0)');edge.addColorStop(.92,'rgba(255,170,65,.18)');edge.addColorStop(1,'rgba(255,65,15,.95)');
+    ctx.fillStyle=edge;ctx.fillRect(0,0,w,Math.max(5,top*.14));ctx.fillRect(0,h-Math.max(5,bottom*.14),w,Math.max(5,bottom*.14));
+    const holeW=Math.max(18,Math.floor(w*.055)), holeH=Math.max(18,Math.floor(top*.58)), gap=Math.max(42,Math.floor(w/8.5));
+    for(let x=-Math.floor(holeW*.25);x<w+holeW;x+=gap){
+      ctx.fillStyle='#eee7d5';
+      ctx.beginPath();ctx.roundRect(x,top*.22,holeW,holeH,Math.min(8,holeH*.22));ctx.fill();
+      ctx.beginPath();ctx.roundRect(x,h-bottom+bottom*.22,holeW,Math.max(18,Math.floor(bottom*.58)),Math.min(8,bottom*.22));ctx.fill();
+    }
+    ctx.fillStyle='#f0a21a';ctx.textAlign='left';ctx.font=`bold ${Math.max(13,Math.floor(fs*1.0))}px Arial,sans-serif`;ctx.fillText('18',w*.035,top*.50);
+    ctx.textAlign='center';ctx.font=`bold ${Math.max(14,Math.floor(fs*1.2))}px Arial,sans-serif`;ctx.fillText(name,w/2,top*.50);
+    ctx.textAlign='right';ctx.font=`bold ${Math.max(12,Math.floor(fs*.9))}px Arial,sans-serif`;ctx.fillText('18A',w*.965,top*.50);
+    ctx.textAlign='left';ctx.font=`bold ${Math.max(10,Math.floor(fs*.72))}px monospace`;ctx.fillText(String(text||'').slice(0,24),w*.035,h-bottom*.48);
+    ctx.textAlign='right';ctx.fillText(String(sim||'').toUpperCase(),w*.965,h-bottom*.48);
+    ctx.strokeStyle='rgba(240,162,26,.7)';ctx.lineWidth=Math.max(1,w*.0015);
+    for(let x=w*.08;x<w*.92;x+=Math.max(18,w*.025)){ctx.beginPath();ctx.moveTo(x,h-bottom*.24);ctx.lineTo(x,h-bottom*.09);ctx.stroke();}
+  } else if(style==='fuji35'){
+    // Clean Fujifilm-style negative frame.
+    ctx.fillStyle='rgba(12,12,12,.50)';ctx.fillRect(0,0,w,top);ctx.fillRect(0,h-bottom,w,bottom);
+    ctx.strokeStyle='rgba(245,245,238,.65)';ctx.lineWidth=Math.max(2,w*.003);ctx.strokeRect(side,side,w-side*2,h-side*2);
+    ctx.fillStyle='rgba(230,230,220,.88)';ctx.textAlign='left';ctx.font=`bold ${Math.max(11,fs)}px Arial,sans-serif`;ctx.fillText('FUJIFILM',w*.035,top*.5);
+    ctx.textAlign='center';ctx.fillText(name,w/2,top*.5);ctx.textAlign='right';ctx.fillText('35MM',w*.965,top*.5);
+    ctx.font=`${Math.max(9,Math.floor(fs*.68))}px monospace`;ctx.textAlign='left';ctx.fillText(String(text||'').slice(0,24),w*.035,h-bottom*.5);ctx.textAlign='right';ctx.fillText(String(sim||'').toUpperCase(),w*.965,h-bottom*.5);
+  } else if(style==='contact35'){
+    // Contact-sheet / scan frame with numbered frame marks.
+    ctx.fillStyle='rgba(244,240,226,.48)';ctx.fillRect(0,0,w,top);ctx.fillRect(0,h-bottom,w,bottom);
+    ctx.fillStyle='rgba(20,20,20,.50)';
+    for(let x=0,i=0;x<w;x+=Math.max(42,w*.075),i++){ctx.fillRect(x+6,top*.20,Math.max(24,w*.035),top*.58);ctx.fillRect(x+6,h-bottom+bottom*.20,Math.max(24,w*.035),bottom*.58);}
+    ctx.fillStyle='#262626';ctx.textAlign='center';ctx.font=`bold ${Math.max(12,Math.floor(fs*1.05))}px Arial,sans-serif`;ctx.fillText(name,w/2,top*.52);
+    ctx.font=`bold ${Math.max(9,Math.floor(fs*.7))}px monospace`;ctx.textAlign='left';ctx.fillText(String(text||'').slice(0,22),w*.035,h-bottom*.50);ctx.textAlign='right';ctx.fillText('FRAME 18A',w*.965,h-bottom*.50);
+  } else if(style==='cinema35'){
+    // Cinematic black matte with subtle warm edge and simulation title.
+    ctx.fillStyle='rgba(0,0,0,.50)';ctx.fillRect(0,0,w,top);ctx.fillRect(0,h-bottom,w,bottom);
+    ctx.fillStyle='rgba(214,139,49,.85)';ctx.fillRect(0,top-2,w,2);ctx.fillRect(0,h-bottom,w,2);
+    ctx.fillStyle='rgba(245,245,245,.90)';ctx.textAlign='center';ctx.font=`bold ${Math.max(12,Math.floor(fs*1.05))}px Arial,sans-serif`;ctx.fillText(name,w/2,top*.53);
+    ctx.textAlign='left';ctx.font=`${Math.max(9,Math.floor(fs*.72))}px monospace`;ctx.fillText(String(text||'').slice(0,22),w*.035,h-bottom*.50);
+    ctx.textAlign='right';ctx.fillText('35MM • '+String(sim||'').toUpperCase(),w*.965,h-bottom*.50);
+  }
+  ctx.restore();
+}
+
+function drawBorderFrame(ctx, canvasW, canvasH, bw, fh, style, text, sim, textSize){
+  if(style==='kodak2008'){
+    drawKodak2008Border(ctx,canvasW,canvasH,bw,fh,text,sim,textSize);
+    return;
+  }
+  ctx.fillStyle='#f5f5f0';ctx.fillRect(0,0,canvasW,canvasH);
+  ctx.fillStyle='#333';ctx.textAlign='left';
+  ctx.font=`bold ${Math.max(6,Math.floor(canvasW*(Number(textSize||2)/100)))}px sans-serif`;
+  ctx.fillText(text||'',bw,canvasH-fh*.35);
+  ctx.textAlign='right';
+  ctx.font=`${Math.max(9,Math.floor(canvasW*.016))}px monospace`;
+  ctx.fillText(String(sim||'').toUpperCase(),canvasW-bw,canvasH-fh*.35);
+}
+
+function drawInnerShadow(ctx,x,y,w,h,side,enabled,intensity,size,orientation){
+  if(!enabled || intensity<=0 || size<=0)return;
+  const a=Math.max(0,Math.min(1,Number(intensity||0)/100));
+  const s=Math.max(1,Number(size||20));
+  ctx.save();
+  // Shadow is drawn only along the photo/frame junction. It gives the frame
+  // a recessed look without washing out the photograph.
+  const drawEdge=(gx,gy,gw,gh,grad)=>{ctx.fillStyle=grad;ctx.fillRect(gx,gy,gw,gh);};
+  if(orientation==='landscape'){
+    let g=ctx.createLinearGradient(0,y,0,y+s); g.addColorStop(0,`rgba(0,0,0,${a*.78})`);g.addColorStop(1,'rgba(0,0,0,0)'); drawEdge(x,y,w,Math.min(s,h),g);
+    g=ctx.createLinearGradient(0,y+h-s,0,y+h); g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,`rgba(0,0,0,${a*.78})`); drawEdge(x,y+h-Math.min(s,h),w,Math.min(s,h),g);
+  }else{
+    let g=ctx.createLinearGradient(x,y,x+s,y); g.addColorStop(0,`rgba(0,0,0,${a*.78})`);g.addColorStop(1,'rgba(0,0,0,0)'); drawEdge(x,y,Math.min(s,w),h,g);
+    g=ctx.createLinearGradient(x+w-s,y,x+w,y); g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,`rgba(0,0,0,${a*.78})`); drawEdge(x+w-Math.min(s,w),y,Math.min(s,w),h,g);
+  }
+  ctx.restore();
+}
+
+function drawRotatedVerticalBorder(ctx,x,y,w,h,style,text,sim,textSize,side,shadowEnabled,shadowIntensity,shadowSize){
+  // Portrait border: build a true vertical strip. The film artwork is rotated
+  // 90° CCW so the original TOP/header becomes the LEFT side of the photo.
+  // Do not squeeze a horizontal strip into portrait dimensions; that was the
+  // source of the distortion/clipping in the previous version.
+  const tmp=document.createElement('canvas');
+  tmp.width=Math.max(1,h);
+  tmp.height=Math.max(1,w);
+  const t=tmp.getContext('2d');
+  const old=window.__filmOuterInsets;
+  window.__filmOuterInsets=null;
+
+  // Render the artwork on a correctly sized horizontal strip first.
+  const stripH=Math.max(1,w);
+  t.fillStyle=(style==='contact35')?'#f4f0e2':'#101010';
+  t.fillRect(0,0,tmp.width,tmp.height);
+  drawOverlayBorder(t,tmp.width,tmp.height,style,text,sim,textSize);
+
+  window.__filmOuterInsets=old;
+  ctx.save();
+  ctx.translate(x,y+h);
+  ctx.rotate(-Math.PI/2);
+  ctx.drawImage(tmp,0,0,tmp.width,tmp.height,0,0,h,w);
+  ctx.restore();
+}
+
+function drawOuterFilmBorder(ctx,imageW,imageH,style,text,sim,textSize,bw,fh,drawImageFn,shadowEnabled=false,shadowIntensity=50,shadowSize=20){
+  // Classic Film is intentionally left exactly as the original V38-style
+  // outer frame. Other styles use orientation-aware film strips:
+  // landscape = TOP/BOTTOM only; portrait = LEFT/RIGHT only.
+  if(style==='classic'){
+    const outW=imageW+bw*2, outH=imageH+bw+fh;
+    ctx.fillStyle='#f5f5f0';ctx.fillRect(0,0,outW,outH);
+    drawImageFn(bw,bw,imageW,imageH);
+    ctx.fillStyle='#333';ctx.textAlign='left';
+    ctx.font=`bold ${Math.max(6,Math.floor(outW*(Number(textSize||2)/100)))}px sans-serif`;
+    ctx.fillText(text||'',bw,outH-fh*.35);
+    ctx.textAlign='right';
+    ctx.font=`${Math.max(9,Math.floor(outW*.016))}px monospace`;
+    ctx.fillText(String(sim||'').toUpperCase(),outW-bw,outH-fh*.35);
+    return;
+  }
+  const portrait=imageH>imageW;
+  const borderSize=portrait?Math.max(2,fh):Math.max(2,bw);
+  if(!portrait){
+    const outW=imageW, outH=imageH+borderSize*2;
+    ctx.fillStyle=(style==='contact35')?'#f4f0e2':'#101010';ctx.fillRect(0,0,outW,outH);
+    drawImageFn(0,borderSize,imageW,imageH);
+    const old=window.__filmOuterInsets;
+    window.__filmOuterInsets={top:borderSize,bottom:borderSize};
+    drawOverlayBorder(ctx,outW,outH,style,text,sim,textSize);
+    window.__filmOuterInsets=old;
+    drawInnerShadow(ctx,0,borderSize,imageW,imageH,borderSize,shadowEnabled,shadowIntensity,shadowSize,'landscape');
+  }else{
+    const outW=imageW+borderSize*2, outH=imageH;
+    ctx.fillStyle=(style==='contact35')?'#f4f0e2':'#101010';ctx.fillRect(0,0,outW,outH);
+    drawImageFn(borderSize,0,imageW,imageH);
+    drawRotatedVerticalBorder(ctx,0,0,borderSize,imageH,style,text,sim,textSize,borderSize,shadowEnabled,shadowIntensity,shadowSize);
+    // Mirror the same border artwork on the right. The left side is the
+    // rotated "header" side; the right side is its matching film edge.
+    ctx.save();ctx.translate(outW,0);ctx.scale(-1,1);
+    drawRotatedVerticalBorder(ctx,0,0,borderSize,imageH,style,text,sim,textSize,borderSize,shadowEnabled,shadowIntensity,shadowSize);
+    ctx.restore();
+    drawInnerShadow(ctx,borderSize,0,imageW,imageH,borderSize,shadowEnabled,shadowIntensity,shadowSize,'portrait');
+  }
+}
 function renderPreview(){
   if(!loadedImage)return;
   try{
-    const bw=controls.enableBorder.checked?Math.floor(previewCanvas.width*.05):0;
-    const fh=controls.enableBorder.checked?Math.floor(previewCanvas.height*.07):0;
-    canvas.width=previewCanvas.width+bw*2;
-    canvas.height=previewCanvas.height+bw+fh;
+    const style=controls.borderStyle?.value||'classic';
+    const framePct=clamp(Number(controls.borderThickness?.value||5),1,10)/100;
+    const bw=controls.enableBorder.checked?Math.floor(previewCanvas.width*framePct):0;
+    const fh=controls.enableBorder.checked?Math.floor(previewCanvas.height*framePct*1.4):0;
+    const isPortrait=previewCanvas.height>previewCanvas.width && style!=='classic';
+    const side=controls.enableBorder.checked?(isPortrait?Math.max(2,fh):Math.max(2,bw)):0;
+    canvas.width=controls.enableBorder.checked?(style==='classic'?previewCanvas.width+bw*2:(isPortrait?previewCanvas.width+side*2:previewCanvas.width)):previewCanvas.width;
+    canvas.height=controls.enableBorder.checked?(style==='classic'?previewCanvas.height+bw+fh:(isPortrait?previewCanvas.height:previewCanvas.height+side*2)):previewCanvas.height;
 
     filterCanvas.width=previewCanvas.width;
     filterCanvas.height=previewCanvas.height;
@@ -2118,17 +2607,9 @@ function renderPreview(){
 
     ctx.clearRect(0,0,canvas.width,canvas.height);
     if(controls.enableBorder.checked){
-      ctx.fillStyle='#f5f5f0';ctx.fillRect(0,0,canvas.width,canvas.height);
-    }
-    ctx.drawImage(filterCanvas,bw,bw);
-
-    if(controls.enableBorder.checked){
-      ctx.fillStyle='#333';ctx.textAlign='left';
-      ctx.font=`bold ${Math.max(6,Math.floor(canvas.width*(Number(controls.borderTextSize.value||2)/100)))}px sans-serif`;
-      ctx.fillText(controls.borderText.value,bw,canvas.height-fh*.35);
-      ctx.textAlign='right';
-      ctx.font=`${Math.max(9,Math.floor(canvas.width*.016))}px monospace`;
-      ctx.fillText(currentSimulation.toUpperCase(),canvas.width-bw,canvas.height-fh*.35);
+      drawOuterFilmBorder(ctx,previewCanvas.width,previewCanvas.height,style,controls.borderText.value,currentSimulation,controls.borderTextSize.value,bw,fh,(x,y,w,h)=>ctx.drawImage(filterCanvas,x,y,w,h),controls.enableInnerShadow.checked,controls.innerShadowIntensity.value,controls.innerShadowSize.value);
+    }else{
+      ctx.drawImage(filterCanvas,0,0);
     }
     try{ updateMaskOverlay(); }catch(maskErr){ console.error(maskErr); if(maskOverlay)maskOverlay.style.display='none'; }
   }catch(e){
@@ -2140,6 +2621,10 @@ function renderPreview(){
     }catch(fallbackErr){ console.error(fallbackErr); }
   }
 }
+['innerShadowIntensity','innerShadowSize'].forEach(id=>{
+  const el=document.getElementById(id),val=document.getElementById(id+'Val');
+  if(el){el.addEventListener('input',()=>{if(val)val.textContent=id==='innerShadowIntensity'?el.value+'%':el.value+'px';requestRender();});}
+});
 document.querySelectorAll('.top-tab').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.top-tab').forEach(b=>b.classList.remove('active'));
@@ -2173,7 +2658,7 @@ Object.keys(controls).forEach(k=>{
     updateRecipeBox();requestRender();
   });
   
-  if(k==='enableDate'||k==='enableBorder')el.addEventListener('change',()=>{
+  if(k==='enableDate'||k==='enableBorder'||k==='borderStyle'||k==='enableInnerShadow')el.addEventListener('change',()=>{
     updateRecipeBox();requestRender();markPresetDirty();
   });
 });
@@ -2369,11 +2854,15 @@ document.getElementById('downloadBtn').addEventListener('click',async()=>{
     const ih=loadedImage.naturalHeight||loadedImage.height;
     if(!iw||!ih)throw new Error('Invalid image dimensions');
 
-    const bw=controls.enableBorder.checked?Math.floor(iw*.05):0;
-    const fh=controls.enableBorder.checked?Math.floor(ih*.07):0;
+    const style=controls.borderStyle?.value||'classic';
+    const framePct=clamp(Number(controls.borderThickness?.value||5),1,10)/100;
+    const bw=controls.enableBorder.checked?Math.floor(iw*framePct):0;
+    const fh=controls.enableBorder.checked?Math.floor(ih*framePct*1.4):0;
+    const isPortrait=ih>iw && style!=='classic';
+    const side=controls.enableBorder.checked?(isPortrait?Math.max(2,fh):Math.max(2,bw)):0;
 
-    exportCanvas.width=iw+bw*2;
-    exportCanvas.height=ih+bw+fh;
+    exportCanvas.width=controls.enableBorder.checked?(style==='classic'?iw+bw*2:(isPortrait?iw+side*2:iw)):iw;
+    exportCanvas.height=controls.enableBorder.checked?(style==='classic'?ih+bw+fh:(isPortrait?ih:ih+side*2)):ih;
 
     // Reuse the filter canvas at ORIGINAL resolution for the export.
     const oldW=filterCanvas.width, oldH=filterCanvas.height;
@@ -2386,19 +2875,9 @@ document.getElementById('downloadBtn').addEventListener('click',async()=>{
 
     exportCtx.clearRect(0,0,exportCanvas.width,exportCanvas.height);
     if(controls.enableBorder.checked){
-      exportCtx.fillStyle='#f5f5f0';
-      exportCtx.fillRect(0,0,exportCanvas.width,exportCanvas.height);
-    }
-    exportCtx.drawImage(filterCanvas,bw,bw);
-
-    if(controls.enableBorder.checked){
-      exportCtx.fillStyle='#333';
-      exportCtx.textAlign='left';
-      exportCtx.font=`bold ${Math.max(6,Math.floor(exportCanvas.width*(Number(controls.borderTextSize.value||2)/100)))}px sans-serif`;
-      exportCtx.fillText(controls.borderText.value,bw,exportCanvas.height-fh*.35);
-      exportCtx.textAlign='right';
-      exportCtx.font=`${Math.max(9,Math.floor(exportCanvas.width*.016))}px monospace`;
-      exportCtx.fillText(currentSimulation.toUpperCase(),exportCanvas.width-bw,exportCanvas.height-fh*.35);
+      drawOuterFilmBorder(exportCtx,iw,ih,style,controls.borderText.value,currentSimulation,controls.borderTextSize.value,bw,fh,(x,y,w,h)=>exportCtx.drawImage(filterCanvas,x,y,w,h),controls.enableInnerShadow.checked,controls.innerShadowIntensity.value,controls.innerShadowSize.value);
+    }else{
+      exportCtx.drawImage(filterCanvas,0,0);
     }
 
     const blob=await new Promise(resolve=>exportCanvas.toBlob(resolve,'image/jpeg',.98));
@@ -3182,6 +3661,80 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 </script>
 
+<script id="v38-batch-engine">
+(function(){
+  const filesEl=document.getElementById('batchImageInput');
+  const recipeEl=document.getElementById('batchRecipeCode');
+  const listEl=document.getElementById('batchFileList');
+  const statusEl=document.getElementById('batchStatus');
+  const bar=document.getElementById('batchProgressBar');
+  const processBtn=document.getElementById('batchProcessBtn');
+  const zipBtn=document.getElementById('batchZipBtn');
+  let selectedFiles=[];
+  let processed=[];
+  const setStatus=t=>{if(statusEl)statusEl.textContent=t;};
+  const renderList=()=>{if(!listEl)return;listEl.textContent=selectedFiles.length?selectedFiles.map((f,i)=>`${i+1}. ${f.name}`).join('\n'):'ยังไม่ได้เลือกรูป';};
+  document.getElementById('batchUseCurrent')?.addEventListener('click',()=>{
+    if(typeof getCurrentConfig==='function'&&recipeEl)recipeEl.value=JSON.stringify(getCurrentConfig(),null,2);
+  });
+  document.getElementById('batchClear')?.addEventListener('click',()=>{if(recipeEl)recipeEl.value='';selectedFiles=[];processed=[];renderList();if(bar)bar.style.width='0%';if(zipBtn)zipBtn.disabled=true;setStatus('พร้อมใช้งาน');});
+  filesEl?.addEventListener('change',e=>{selectedFiles=[...e.target.files];processed=[];if(zipBtn)zipBtn.disabled=true;renderList();setStatus(`${selectedFiles.length} รูปถูกเลือก`);});
+
+  function loadImg(file){return new Promise((resolve,reject)=>{const u=URL.createObjectURL(file),img=new Image();img.onload=()=>{URL.revokeObjectURL(u);resolve(img)};img.onerror=()=>{URL.revokeObjectURL(u);reject(new Error('อ่านภาพไม่ได้'))};img.src=u;});}
+  function canvasBlob(c){return new Promise((resolve,reject)=>c.toBlob(b=>b?resolve(b):reject(new Error('สร้าง JPEG ไม่สำเร็จ')),'image/jpeg',.98));}
+  async function renderOne(img,cfg){
+    const oldCfg=typeof getCurrentConfig==='function'?getCurrentConfig():{};
+    const oldLoaded=loadedImage;
+    applyConfig(cfg);
+    if(cfg.vintageLut&&cfg.vintageLut!=='none'&&typeof ensureVintageLutReady==='function') await ensureVintageLutReady();
+    const iw=img.naturalWidth||img.width,ih=img.naturalHeight||img.height;
+    const out=document.createElement('canvas'),octx=out.getContext('2d',{willReadFrequently:true});
+    const style=controls.borderStyle?.value||'classic';
+    const framePct=clamp(Number(controls.borderThickness?.value||5),1,10)/100;
+    const bw=controls.enableBorder.checked?Math.floor(iw*framePct):0;
+    const fh=controls.enableBorder.checked?Math.floor(ih*framePct*1.4):0;
+    const isPortrait=ih>iw && style!=='classic';
+    const side=controls.enableBorder.checked?(isPortrait?Math.max(2,fh):Math.max(2,bw)):0;
+    out.width=controls.enableBorder.checked?(style==='classic'?iw+bw*2:(isPortrait?iw+side*2:iw)):iw;
+    out.height=controls.enableBorder.checked?(style==='classic'?ih+bw+fh:(isPortrait?ih:ih+side*2)):ih;
+    const oldW=filterCanvas.width,oldH=filterCanvas.height;
+    filterCanvas.width=iw;filterCanvas.height=ih;filterCtx.clearRect(0,0,iw,ih);filterCtx.drawImage(img,0,0,iw,ih);
+    applyFilters(filterCtx,iw,ih);
+    octx.clearRect(0,0,out.width,out.height);
+    if(controls.enableBorder.checked){
+      drawOuterFilmBorder(octx,iw,ih,style,controls.borderText.value,currentSimulation,controls.borderTextSize.value,bw,fh,(x,y,w,h)=>octx.drawImage(filterCanvas,x,y,w,h),controls.enableInnerShadow.checked,controls.innerShadowIntensity.value,controls.innerShadowSize.value);
+    }else{
+      octx.drawImage(filterCanvas,0,0);
+    }
+    if(controls.enableDate.checked){
+      const d=new Date(),str=`${String(d.getFullYear()).slice(-2)}  ${String(d.getMonth()+1).padStart(2,'0')}.  ${String(d.getDate()).padStart(2,'0')}`;
+      octx.save();octx.font=`bold italic ${Math.max(16,Math.floor(iw*.035))}px 'Courier New',monospace`;octx.fillStyle='#ff7b00';octx.shadowColor='rgba(0,0,0,.9)';octx.shadowBlur=6;octx.textAlign='right';octx.fillText(str,out.width-out.width*.03,out.height-out.height*.03);octx.restore();
+    }
+    const blob=await canvasBlob(out);
+    filterCanvas.width=oldW;filterCanvas.height=oldH;if(oldLoaded){filterCtx.clearRect(0,0,oldW,oldH);filterCtx.drawImage(previewCanvas,0,0);}
+    applyConfig(oldCfg);loadedImage=oldLoaded;requestRender();
+    return blob;
+  }
+  function crc32(bytes){let c=~0;for(let i=0;i<bytes.length;i++){c^=bytes[i];for(let k=0;k<8;k++)c=(c>>>1)^((c&1)?0xEDB88320:0);}return (~c)>>>0;}
+  function u16(n){return new Uint8Array([n&255,(n>>>8)&255]);}
+  function u32(n){return new Uint8Array([n&255,(n>>>8)&255,(n>>>16)&255,(n>>>24)&255]);}
+  function concat(parts){let n=parts.reduce((a,b)=>a+b.length,0),o=new Uint8Array(n),p=0;for(const b of parts){o.set(b,p);p+=b.length;}return o;}
+  async function makeZip(entries){
+    const locals=[],centrals=[];let offset=0;
+    const enc=new TextEncoder();
+    for(const e of entries){const name=enc.encode(e.name),data=new Uint8Array(await e.blob.arrayBuffer()),crc=crc32(data);const local=concat([u32(0x04034b50),u16(20),u16(0),u16(0),u16(0),u16(0),u32(crc),u32(data.length),u32(data.length),u16(name.length),u16(0),name,data]);locals.push(local);const central=concat([u32(0x02014b50),u16(20),u16(20),u16(0),u16(0),u16(0),u16(0),u32(crc),u32(data.length),u32(data.length),u16(name.length),u16(0),u16(0),u16(0),u16(0),u32(0),u32(offset),name]);centrals.push(central);offset+=local.length;}
+    const cd=concat(centrals);return new Blob([concat([...locals,cd,u32(0x06054b50),u16(0),u16(0),u16(entries.length),u16(entries.length),u32(cd.length),u32(offset),u16(0)])],{type:'application/zip'});
+  }
+  processBtn?.addEventListener('click',async()=>{
+    if(!selectedFiles.length)return setStatus('กรุณาเลือกรูปก่อน');
+    let cfg;try{cfg=JSON.parse(recipeEl.value||'{}');if(!cfg||typeof cfg!=='object')throw 0;}catch(e){return setStatus('Recipe JSON ไม่ถูกต้อง');}
+    processBtn.disabled=true;zipBtn.disabled=true;processed=[];if(bar)bar.style.width='0%';
+    try{for(let i=0;i<selectedFiles.length;i++){setStatus(`กำลังประมวลผล ${i+1}/${selectedFiles.length} • ${selectedFiles[i].name}`);const img=await loadImg(selectedFiles[i]);const blob=await renderOne(img,cfg);processed.push({name:`${String(i+1).padStart(2,'0')}_${selectedFiles[i].name.replace(/\.[^.]+$/,'')}.jpg`,blob});if(bar)bar.style.width=`${Math.round((i+1)/selectedFiles.length*100)}%`;await new Promise(requestAnimationFrame);}setStatus(`เสร็จแล้ว ${processed.length} รูป • กด EXPORT ALL ZIP`);zipBtn.disabled=false;}
+    catch(e){console.error(e);setStatus('Batch ไม่สำเร็จ: '+e.message);}finally{processBtn.disabled=false;}
+  });
+  zipBtn?.addEventListener('click',async()=>{if(!processed.length)return;zipBtn.disabled=true;setStatus('กำลังสร้าง ZIP…');try{const blob=await makeZip(processed),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='fuji_batch_export.zip';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),3000);setStatus(`ส่งออกแล้ว ${processed.length} รูป`);}catch(e){console.error(e);setStatus('สร้าง ZIP ไม่สำเร็จ: '+e.message);}finally{zipBtn.disabled=false;}});
+})();
+</script>
 <script id="v30-clean-controller">
 (function(){
   const groups={
@@ -3189,12 +3742,44 @@ document.addEventListener('DOMContentLoaded',function(){
     color:[['TONE','lookPanel'],['HSL','hslPanel']],
     effects:[['DUO CHROMATIC','duoPanel']],
     local:[['MASK / LOCAL','maskPanel']],
-    save:[['RECIPE / SAVE','recipePanel']]
+    save:[['RECIPE / SAVE','recipePanel']],
+    batch:[['BATCH','batchPanel']]
   };
   const nav=document.querySelectorAll('.v30-main-tab');
   const sub=document.getElementById('v30Subnav');
   const panels=document.querySelectorAll('.controls-panel>.panel-tab');
   let current='film';
+  function makeLutStrengthUI(){
+    const original=document.getElementById('vintageLutStrength');
+    const originalVal=document.getElementById('vintageLutStrengthVal');
+    const box=document.createElement('div');
+    box.className='v30-lut-strength';
+    const label=document.createElement('label');
+    label.textContent='STRENGTH';
+    const value=document.createElement('span');
+    value.className='val-display';
+    value.textContent=original?.value||'100';
+    const slider=document.createElement('input');
+    slider.type='range'; slider.min='0'; slider.max='100'; slider.value=original?.value||'100';
+    slider.setAttribute('aria-label','LUT Strength');
+    slider.addEventListener('input',()=>{
+      if(!original)return;
+      original.value=slider.value;
+      value.textContent=slider.value;
+      original.dispatchEvent(new Event('input',{bubbles:true}));
+    });
+    // Keep the compact UI synchronized when Recipe/Preset/import changes the real control.
+    if(original && !original.dataset.v30MirrorBound){
+      original.dataset.v30MirrorBound='1';
+      original.addEventListener('input',()=>{
+        slider.value=original.value;
+        value.textContent=original.value;
+      });
+    }
+    if(originalVal) value.textContent=originalVal.textContent||original?.value||'100';
+    box.append(label,slider,value);
+    return box;
+  }
   function show(section, preferred){
     current=section;
     nav.forEach(b=>b.classList.toggle('active',b.dataset.v30Section===section));
@@ -3203,7 +3788,17 @@ document.addEventListener('DOMContentLoaded',function(){
       const b=document.createElement('button'); b.type='button'; b.textContent=label; b.dataset.panel=id;
       b.className=(preferred===id || (!preferred&&i===0))?'active':'';
       b.addEventListener('click',()=>activate(id));
-      sub.appendChild(b);
+      if(id==='lutPanel'){
+        const wrap=document.createElement('div');
+        wrap.className='v30-lut-tab-wrap';
+        wrap.appendChild(b);
+        const strengthUI=makeLutStrengthUI();
+        strengthUI.classList.add('v30-lut-strength-hidden');
+        wrap.appendChild(strengthUI);
+        sub.appendChild(wrap);
+      }else{
+        sub.appendChild(b);
+      }
     });
     const first=(preferred&&document.getElementById(preferred))?.id || groups[section]?.[0]?.[1];
     activate(first);
@@ -3213,8 +3808,14 @@ document.addEventListener('DOMContentLoaded',function(){
     const target=document.getElementById(id);
     if(target)target.classList.add('v30-visible');
     sub.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.panel===id));
+    const strengthUI=sub.querySelector('.v30-lut-strength');
+    if(strengthUI)strengthUI.classList.toggle('v30-lut-strength-hidden',id!=='lutPanel');
   }
   nav.forEach(b=>b.addEventListener('click',()=>show(b.dataset.v30Section)));
+  // Keep Vintage Effects & Frame physically in FILM without duplicating control IDs.
+  const vf=document.getElementById('vintageFramePanel');
+  const filmPanel=document.getElementById('basicPanel');
+  if(vf&&filmPanel)filmPanel.appendChild(vf);
   show('film','basicPanel');
   // The old engine's tab handlers remain available in code, but their visual navigation is removed.
   requestAnimationFrame(()=>{document.documentElement.classList.remove('v30-loading');document.documentElement.classList.add('v30-ready');});
